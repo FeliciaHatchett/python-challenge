@@ -3,14 +3,11 @@ import csv
 
 #Import the file to get the data
 File = os.path.join("budget_data.csv")
-
+Fileout="Financial_Analysis.txt"
 #Create empty lists to house the values of months and revenue
 month_names=[]
 revenue_values=[]
 
-#Print the beginning statement for analysis
-print("Financial Analysis:")
-print("----------------------")
 
 #Open file with reader to interpret data
 with open(File,"r", newline="") as BankFile:
@@ -23,36 +20,45 @@ with open(File,"r", newline="") as BankFile:
         month_names.append(row[0])
 
         # Add revenue
-        revenue_values.append(row[1])
-    
-    #Make values in revenue list into integers
-    revenue_values = list(map(int, revenue_values))
-    
-    #Print total number of months
-    print("Total Months: " + str(len(month_names)))
-    
-    #Calculate and print sum of all values in revenue to find net value    
+        revenue_values.append(int(row[1]))
+   
+    #Calculate and print sum of all values in revenue to find net value 
     Total=sum(revenue_values)
-    print("Total: $" + str(Total))
-
+    
     #Calculate the difference between each month and save to a new list
     differences = [(y-x) for (x, y) in zip(revenue_values[:-1], revenue_values[1:])]
     
-    #Calculate the average of all the differences in the list and save to total average, then print value
+    #Calculate the average of all the differences in the list and save to total average
     total_avg= sum(differences)/len(differences)
-    print("Average Change: $" + str(total_avg))
-
+    
+        
+    monthly_rev=[]
+    monthly_rev=(zip(month_names, revenue_values))
+    
     #Calculate values of greatest increase and greatest decrease
     profit=max(revenue_values)
     deficit=min(revenue_values)
 
-    #Zip month and revenue lists together
-    values=zip(month_names,revenue_values)
-
     #If item at index 1 equals max or min, then print the corresponding values
-    for row in values:
+    for row in monthly_rev:
         if row[1]>=profit:
-            print("Greatest Increase: " + row[0] + " " + "($" + str((row[1])) + ")")
+            winner=row[0]
+            profit=row[1]
+            
 
         elif row[1]<=deficit:
-            print("Greatest Decrease: " + row[0] + " " + "($" + str((row[1])) + ")")
+            loser=row[0]
+            deficit=row[1]
+
+#Save final statement to single variable for export
+financial_analysis=(f"\nFinancial Analysis:\n"
+                        f"----------------------\n"
+                        f"Total Months: {(len(month_names))}\n"
+                        f"Total: ${Total}\n"
+                        f"Average Change: ${total_avg}\n"    
+                        f"Greatest Increase: {winner} (${profit})\n"
+                        f"Greatest Decrease: {loser} (${deficit}))\n")
+print(financial_analysis)
+
+with open(Fileout, "w") as txt_file:
+    txt_file.write(financial_analysis)
