@@ -23,13 +23,13 @@ with open(File,"r", newline="") as BankFile:
         revenue_values.append(int(row[1]))
    
     #Calculate and print sum of all values in revenue to find net value 
-    Total=sum(revenue_values)
+    Total='${:,.2f}'.format(sum(revenue_values))
     
     #Calculate the difference between each month and save to a new list
     differences = [(y-x) for (x, y) in zip(revenue_values[:-1], revenue_values[1:])]
     
     #Calculate the average of all the differences in the list and save to total average
-    total_avg= sum(differences)/len(differences)
+    total_avg= '${:,.2f}'.format(sum(differences)/len(differences))
     
     #Zip differences with month names associated with the y values
     profit_losses=list(map(list, zip(month_names[1:], differences[:])))    
@@ -54,10 +54,10 @@ with open(File,"r", newline="") as BankFile:
 financial_analysis=(f"Financial Analysis:\n"
                         f"----------------------\n"
                         f"Total Months: {(len(month_names))}\n"
-                        f"Total: ${Total}\n"
-                        f"Average Change: ${total_avg}\n"    
-                        f"Greatest Increase: {winner} (${profit})\n"
-                        f"Greatest Decrease: {loser} (${deficit}))\n")
+                        f"Total: {Total}\n"
+                        f"Average Change: {total_avg}\n"    
+                        f"Greatest Increase: {winner} ({'${:,.2f}'.format(profit)})\n"
+                        f"Greatest Decrease: {loser} ({'${:,.2f}'.format(deficit)})\n")
 print(financial_analysis)
 
 with open(Fileout, "w") as txt_file:
