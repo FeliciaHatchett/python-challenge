@@ -31,16 +31,16 @@ with open(File,"r", newline="") as BankFile:
     #Calculate the average of all the differences in the list and save to total average
     total_avg= sum(differences)/len(differences)
     
-        
-    monthly_rev=[]
-    monthly_rev=(zip(month_names, revenue_values))
+    #Zip differences with month names associated with the y values
+    profit_losses=list(map(list, zip(month_names[1:], differences[:])))    
+
     
     #Calculate values of greatest increase and greatest decrease
-    profit=max(revenue_values)
-    deficit=min(revenue_values)
+    profit=max(differences)
+    deficit=min(differences)
 
     #If item at index 1 equals max or min, then print the corresponding values
-    for row in monthly_rev:
+    for row in profit_losses:
         if row[1]>=profit:
             winner=row[0]
             profit=row[1]
