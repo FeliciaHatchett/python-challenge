@@ -51,7 +51,7 @@ with open(File,"r", newline="") as BankFile:
             deficit=row[1]
 
 #Save final statement to single variable for export
-financial_analysis=(f"\nFinancial Analysis:\n"
+financial_analysis=(f"Financial Analysis:\n"
                         f"----------------------\n"
                         f"Total Months: {(len(month_names))}\n"
                         f"Total: ${Total}\n"

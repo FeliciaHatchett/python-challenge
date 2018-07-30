@@ -40,7 +40,7 @@ with open(file,"r", newline="") as filename:
     printout=('\n'.join(final_results))
 
     #Create one single variable to send to the txt file that will print all of the info needed
-    election_results = (f"\nElection Results: \n" 
+    election_results = (f"Election Results: \n" 
     f"-----------------------\n"
     f"Total votes: {total}\n"
     f"-----------------------\n"
